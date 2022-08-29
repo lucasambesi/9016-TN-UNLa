@@ -42,6 +42,7 @@ public class LoginActivity extends AppCompatActivity {
                    Toast.makeText(LoginActivity.this, "Completar Datos", Toast.LENGTH_SHORT).show();
                }else{
                    Intent main_activity = new Intent(LoginActivity.this, MainActivity.class);
+                   main_activity.putExtra("usuario", usuario);
                    startActivity(main_activity);
                }
            }
@@ -55,6 +56,4 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-
-
 }

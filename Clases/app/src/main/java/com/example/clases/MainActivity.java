@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        saludarUsuario();
         etNota1 = findViewById(R.id.etNota1);
         etNota2 = findViewById(R.id.etNota2);
         btnPromedio = findViewById(R.id.btnPromedio);
@@ -41,4 +42,14 @@ public class MainActivity extends AppCompatActivity {
         int promedio = (nota1 + nota2) / 2;
         tvResultado.setText("Resultado: " + promedio);
     }
+
+    private void saludarUsuario(){
+        Bundle bundle = getIntent().getExtras();
+
+        if (bundle != null){
+            String usuario = bundle.getString("usuario");
+            Toast.makeText(MainActivity.this, "Bienvenido/a" + usuario, Toast.LENGTH_SHORT).show();
+        }
+    }
 }
+
