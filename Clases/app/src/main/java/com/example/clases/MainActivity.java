@@ -1,46 +1,50 @@
 package com.example.clases;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    EditText etNota1, etNota2;
-    Button btnPromedio;
-    TextView tvResultado;
+
+    RecyclerView rv_examenes;
+    ExamenAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_calcular_promedio);
 
+        setupAdapter();
         saludarUsuario();
-        etNota1 = findViewById(R.id.etNota1);
-        etNota2 = findViewById(R.id.etNota2);
-        btnPromedio = findViewById(R.id.btnPromedio);
-        tvResultado = findViewById(R.id.tvResultado);
-
-        btnPromedio.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int nota1 = Integer.valueOf(etNota1.getText().toString());
-                int nota2 = Integer.valueOf(etNota2.getText().toString());
-
-                Toast.makeText(MainActivity.this, "Boton Calcular Promedio", Toast.LENGTH_LONG).show();
-                calcularpromedio(nota1, nota2);
-            }
-        });
     }
 
-    private void calcularpromedio(int nota1, int nota2) {
-        int promedio = (nota1 + nota2) / 2;
-        tvResultado.setText("Resultado: " + promedio);
+    private void setupAdapter(){
+        rv_examenes.findViewById(R.id.rv_examenes);
+
+        adapter = new ExamenAdapter(this.getExamenes(), new ExamenAdapter.OnItemClickListener(){
+            @Override
+            public void onItemClickListener(Examen examen) {
+                //Funcionalidad
+                Toast.makeText(MainActivity.this, examen.getMateria(), Toast.LENGTH_SHORT).show();
+            }
+        });
+        
+        rv_examenes.setAdapter(adapter);
+    }
+
+    private List<Examen> getExamenes() {
+        return new ArrayList<Examen>() {{
+            add(new Examen(1, "Ingenieria de Software 1", "2022-04-05"));
+            add(new Examen(2, "Algoritmos y Estructuras de Datos", "2022-04-07"));
+            add(new Examen(3, "Prueba de Software", "2022-04-08"));
+            add(new Examen(4, "Matematica", "2022-04-10"));
+        }};
     }
 
     private void saludarUsuario(){
