@@ -10,10 +10,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GOTApp">
         <activity
-            android:name=".SplashScreenActivity"
+            android:name=".HouseActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".Main2Activity"
+            android:exported="false" />
+        <activity
+            android:name=".SplashScreenActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,8 +25,13 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".LoginActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
-            android:exported="false"></activity>
+            android:exported="true">
+
+        </activity>
     </application>
 
 </manifest>
