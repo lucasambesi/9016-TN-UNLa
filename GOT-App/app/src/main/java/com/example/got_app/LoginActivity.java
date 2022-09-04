@@ -13,29 +13,29 @@ import android.widget.Toast;
 
 public class LoginActivity extends AppCompatActivity {
 
-    EditText etUsuario, etPassword;
-    Button btnIniciarSesion, btnRegistrarUsuario;
-    CheckBox cbRecordarUsuario;
+    EditText etUser, etPassword;
+    Button btnLogin, btnSingUp;
+    CheckBox cbRemember;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        etUsuario = findViewById(R.id.etUsuario);
+        etUser = findViewById(R.id.etUser);
         etPassword = findViewById(R.id.etPassword);
 
-        cbRecordarUsuario = findViewById(R.id.cbRecordarUsuario);
+        cbRemember = findViewById(R.id.cbRemember);
 
-        btnIniciarSesion = findViewById(R.id.btnIniciarSesion);
-        btnRegistrarUsuario = findViewById(R.id.btnRegistrarUsuario);
+        btnLogin = findViewById(R.id.btnLogin);
+        btnSingUp = findViewById(R.id.btnSingUp);
 
-        btnIniciarSesion.setOnClickListener(new View.OnClickListener(){
+        btnLogin.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
                 Log.i("TODO","Se apreto el boton iniciar sesion");
 
-                String usuario= etUsuario.getText().toString();
+                String usuario= etUser.getText().toString();
                 String passsword= etPassword.getText().toString();
 
                 if(usuario.isEmpty() || passsword.isEmpty()){
@@ -47,7 +47,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        btnRegistrarUsuario.setOnClickListener(new View.OnClickListener(){
+        btnSingUp.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
                 Intent main_activity = new Intent(LoginActivity.this, MainActivity.class);
