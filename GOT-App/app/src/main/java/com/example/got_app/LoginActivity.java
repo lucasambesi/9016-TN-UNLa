@@ -50,7 +50,7 @@ public class LoginActivity extends AppCompatActivity {
         btnSingUp.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                Intent main_activity = new Intent(LoginActivity.this, MainActivity.class);
+                Intent main_activity = new Intent(LoginActivity.this, RegisterActivity.class);
                 startActivity(main_activity);
             }
         });
