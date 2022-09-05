@@ -15,7 +15,6 @@ public class CalcularPromedioActivity extends AppCompatActivity {
     Button btnPromedio;
     TextView tvResultado;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

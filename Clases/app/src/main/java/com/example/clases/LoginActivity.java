@@ -17,16 +17,16 @@ public class LoginActivity extends AppCompatActivity {
     EditText etUsuario, etPassword;
     Button btnIniciarSesion, btnRegistrarUsuario;
     CheckBox cbRecordarUsuario;
-    //Toolbar mi_toolbar;
+    Toolbar mi_toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView( R.layout.activity_login);
 
-        //mi_toolbar = findViewById(R.id.mi_toolbar);
-        //setSupportActionBar(mi_toolbar);
-        //getSupportActionBar().setTitle("Login...");
+        mi_toolbar = findViewById(R.id.tbLogin);
+        setSupportActionBar(mi_toolbar);
+        getSupportActionBar().setTitle("Login...");
 
         etUsuario = findViewById(R.id.etUsuario);
         etPassword = findViewById(R.id.etPassword);

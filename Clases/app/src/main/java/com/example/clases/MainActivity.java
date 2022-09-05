@@ -1,9 +1,14 @@
 package com.example.clases;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -12,15 +17,20 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
 
+    Toolbar mi_toolbar;
     RecyclerView rv_examenes;
     ExamenAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_calcular_promedio);
+        setContentView(R.layout.activity_main);
 
-        setupAdapter();
+        mi_toolbar = findViewById(R.id.tbMain);
+        setSupportActionBar(mi_toolbar);
+        getSupportActionBar().setTitle("Examenes...");
+
+        //setupAdapter();
         saludarUsuario();
     }
 
@@ -34,17 +44,26 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, examen.getMateria(), Toast.LENGTH_SHORT).show();
             }
         });
-        
+
         rv_examenes.setAdapter(adapter);
     }
 
-    private List<Examen> getExamenes() {
-        return new ArrayList<Examen>() {{
-            add(new Examen(1, "Ingenieria de Software 1", "2022-04-05"));
-            add(new Examen(2, "Algoritmos y Estructuras de Datos", "2022-04-07"));
-            add(new Examen(3, "Prueba de Software", "2022-04-08"));
-            add(new Examen(4, "Matematica", "2022-04-10"));
-        }};
+    @Override
+    public boolean onCreateOptionsMenu(@NonNull Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.iAdd:
+                Intent main_activity = new Intent(MainActivity.this, AgregarExamenActivity.class);
+                startActivity(main_activity);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     private void saludarUsuario(){
@@ -55,5 +74,13 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(MainActivity.this, "Bienvenido/a" + usuario, Toast.LENGTH_SHORT).show();
         }
     }
-}
 
+    private List<Examen> getExamenes() {
+        return new ArrayList<Examen>() {{
+            add(new Examen(1, "Ingenieria de Software 1", "2022-04-05"));
+            add(new Examen(2, "Algoritmos y Estructuras de Datos", "2022-04-07"));
+            add(new Examen(3, "Prueba de Software", "2022-04-08"));
+            add(new Examen(4, "Matematica", "2022-04-10"));
+        }};
+    }
+}

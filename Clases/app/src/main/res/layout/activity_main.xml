@@ -7,6 +7,12 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
+    <include
+        android:id="@+id/tbMain"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/primary_toolbar" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_examenes"
         android:layout_width="match_parent"
@@ -16,5 +22,4 @@
         tools:itemCount="4"
         tools:listitem="@layout/item_examen"
         />
-
 </LinearLayout>
