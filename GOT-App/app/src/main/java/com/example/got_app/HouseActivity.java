@@ -10,7 +10,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -46,7 +45,7 @@ public class HouseActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(@NonNull Menu menu) {
-        getMenuInflater().inflate(R.menu.menu, menu);
+        getMenuInflater().inflate(R.menu.menu_house, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -57,20 +56,19 @@ public class HouseActivity extends AppCompatActivity {
                 Intent main_activity = new Intent(HouseActivity.this, MainActivity.class);
                 startActivity(main_activity);
                 return true;
-
+            default:
+                return super.onOptionsItemSelected(item);
         }
-
-        return super.onOptionsItemSelected(item);
     }
 
     public ArrayList<CardCharacterModel> dataqueue()
     {
         ArrayList<CardCharacterModel> houses = new ArrayList<>();
 
-        CardCharacterModel stark =new CardCharacterModel();
-        stark.setHeader("Jon Snow");
-        stark.setDesc("\"description.\"");
-        houses.add(stark);
+        CardCharacterModel jon =new CardCharacterModel();
+        jon.setHeader("Jon Snow");
+        jon.setDesc("\"description.\"");
+        houses.add(jon);
 
         CardCharacterModel sansa=new CardCharacterModel();
         sansa.setHeader("Sansa Stark");

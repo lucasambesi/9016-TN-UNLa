@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/iMore"
+        android:icon="@drawable/ic_action_more"
+        android:title="Favorites"
+        app:showAsAction="never"></item>
+    <item
+        android:id="@+id/iBack"
+        android:icon="@drawable/ic_action_more"
+        android:title="Exit"
+        app:showAsAction="never">
+    </item>
+</menu>

@@ -13,6 +13,17 @@
         android:padding="16dp"
         android:background="@android:color/white">
 
+        <ImageButton
+            android:id="@+id/ibFav"
+            android:layout_width="52dp"
+            android:layout_height="42dp"
+            android:background="@color/gray"
+            android:layout_alignParentStart="false"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/ic_action_star">
+
+        </ImageButton>
+
         <TextView
             android:id="@+id/t1"
             android:layout_width="match_parent"
@@ -32,6 +43,8 @@
             android:text="This is Description Text"
             android:textColor="@android:color/darker_gray"
             android:textSize="16dp" />
+
+
 
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

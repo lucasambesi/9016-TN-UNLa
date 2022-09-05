@@ -1,10 +1,16 @@
 package com.example.got_app;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -16,10 +22,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.tbHouse);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.tbMain);
 
         setSupportActionBar(toolbar);
-        rcv = (RecyclerView) findViewById(R.id.recview);
+        rcv = (RecyclerView) findViewById(R.id.rvHouses);
         adapter = new HouseAdapter(dataqueue(),getApplicationContext());
 
         rcv.setAdapter(adapter);
@@ -28,6 +34,27 @@ public class MainActivity extends AppCompatActivity {
         rcv.setLayoutManager(gridLayoutManager);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(@NonNull Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.iMore:
+                Intent main_activity = new Intent(MainActivity.this, FavoritesActivity.class);
+                startActivity(main_activity);
+                return true;
+            case R.id.iBack:
+                finish();
+                System.exit(0);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
     public ArrayList<CardHouseModel> dataqueue()
     {
