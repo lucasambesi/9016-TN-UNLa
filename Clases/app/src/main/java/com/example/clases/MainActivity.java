@@ -1,44 +1,86 @@
 package com.example.clases;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    EditText etNota1, etNota2;
-    Button btnPromedio;
-    TextView tvResultado;
+
+    Toolbar mi_toolbar;
+    RecyclerView rv_examenes;
+    ExamenAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        etNota1 = findViewById(R.id.etNota1);
-        etNota2 = findViewById(R.id.etNota2);
-        btnPromedio = findViewById(R.id.btnPromedio);
-        tvResultado = findViewById(R.id.tvResultado);
+        mi_toolbar = findViewById(R.id.tbMain);
+        setSupportActionBar(mi_toolbar);
+        getSupportActionBar().setTitle("Examenes...");
 
-        btnPromedio.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int nota1 = Integer.valueOf(etNota1.getText().toString());
-                int nota2 = Integer.valueOf(etNota2.getText().toString());
-
-                Toast.makeText(MainActivity.this, "Boton Calcular Promedio", Toast.LENGTH_LONG).show();
-                calcularpromedio(nota1, nota2);
-            }
-        });
+        //setupAdapter();
+        saludarUsuario();
     }
 
-    private void calcularpromedio(int nota1, int nota2) {
-        int promedio = (nota1 + nota2) / 2;
-        tvResultado.setText("Resultado: " + promedio);
+    private void setupAdapter(){
+        rv_examenes.findViewById(R.id.rv_examenes);
+
+        adapter = new ExamenAdapter(this.getExamenes(), new ExamenAdapter.OnItemClickListener(){
+            @Override
+            public void onItemClickListener(Examen examen) {
+                //Funcionalidad
+                Toast.makeText(MainActivity.this, examen.getMateria(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        rv_examenes.setAdapter(adapter);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(@NonNull Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.iAdd:
+                Intent main_activity = new Intent(MainActivity.this, AgregarExamenActivity.class);
+                startActivity(main_activity);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void saludarUsuario(){
+        Bundle bundle = getIntent().getExtras();
+
+        if (bundle != null){
+            String usuario = bundle.getString("usuario");
+            Toast.makeText(MainActivity.this, "Bienvenido/a" + usuario, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private List<Examen> getExamenes() {
+        return new ArrayList<Examen>() {{
+            add(new Examen(1, "Ingenieria de Software 1", "2022-04-05"));
+            add(new Examen(2, "Algoritmos y Estructuras de Datos", "2022-04-07"));
+            add(new Examen(3, "Prueba de Software", "2022-04-08"));
+            add(new Examen(4, "Matematica", "2022-04-10"));
+        }};
     }
 }

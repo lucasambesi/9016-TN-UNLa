@@ -1,6 +1,7 @@
 package com.example.clases;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,11 +17,16 @@ public class LoginActivity extends AppCompatActivity {
     EditText etUsuario, etPassword;
     Button btnIniciarSesion, btnRegistrarUsuario;
     CheckBox cbRecordarUsuario;
+    Toolbar mi_toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView( R.layout.activity_login);
+
+        mi_toolbar = findViewById(R.id.tbLogin);
+        setSupportActionBar(mi_toolbar);
+        getSupportActionBar().setTitle("Login...");
 
         etUsuario = findViewById(R.id.etUsuario);
         etPassword = findViewById(R.id.etPassword);
@@ -42,6 +48,7 @@ public class LoginActivity extends AppCompatActivity {
                    Toast.makeText(LoginActivity.this, "Completar Datos", Toast.LENGTH_SHORT).show();
                }else{
                    Intent main_activity = new Intent(LoginActivity.this, MainActivity.class);
+                   main_activity.putExtra("usuario", usuario);
                    startActivity(main_activity);
                }
            }
@@ -55,6 +62,4 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-
-
 }
