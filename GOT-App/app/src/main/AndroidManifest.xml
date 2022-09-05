@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GOTApp">
         <activity
+            android:name=".RegisterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".FavoritesActivity"
+            android:exported="false" />
+        <activity
             android:name=".HouseActivity"
             android:exported="false" />
         <activity
@@ -29,8 +35,7 @@
             android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:exported="false">
-        </activity>
+            android:exported="true"></activity>
     </application>
 
 </manifest>
