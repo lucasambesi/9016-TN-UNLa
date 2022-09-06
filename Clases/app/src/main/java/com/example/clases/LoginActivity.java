@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -33,6 +34,14 @@ public class LoginActivity extends AppCompatActivity {
 
         cbRecordarUsuario = findViewById(R.id.cbRecordarUsuario);
 
+        SharedPreferences prefs = getApplicationContext().getSharedPreferences(Constantes.SP_CREDENCIALES, MODE_PRIVATE);
+        String usuarioGuardado = prefs.getString(Constantes.USUARIO, null);
+        String passGuadarda = prefs.getString(Constantes.PASSWORD, null);
+
+        if(usuarioGuardado != null && passGuadarda != null){
+            iniciarMainActivity(usuarioGuardado);
+        }
+
         btnIniciarSesion = findViewById(R.id.btnIniciarSesion);
         btnRegistrarUsuario = findViewById(R.id.btnRegistrarUsuario);
 
@@ -42,14 +51,12 @@ public class LoginActivity extends AppCompatActivity {
                Log.i("TODO","Se apreto el boton iniciar sesion");
 
                String usuario= etUsuario.getText().toString();
-               String passsword= etPassword.getText().toString();
+               String password= etPassword.getText().toString();
 
-               if(usuario.isEmpty() || passsword.isEmpty()){
+               if(usuario.isEmpty() || password.isEmpty()){
                    Toast.makeText(LoginActivity.this, "Completar Datos", Toast.LENGTH_SHORT).show();
                }else{
-                   Intent main_activity = new Intent(LoginActivity.this, MainActivity.class);
-                   main_activity.putExtra("usuario", usuario);
-                   startActivity(main_activity);
+                   login(usuario,password);
                }
            }
         });
@@ -62,4 +69,25 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void login(String usuario, String password) {
+        if(cbRecordarUsuario.isChecked()){
+            SharedPreferences prefs = getApplicationContext().getSharedPreferences(Constantes.SP_CREDENCIALES, MODE_PRIVATE);
+            SharedPreferences.Editor editor = prefs.edit();
+
+            editor.putString(Constantes.USUARIO, usuario);
+            editor.putString(Constantes.PASSWORD, password);
+            editor.apply();
+        }
+
+        iniciarMainActivity(usuario);
+    }
+
+    private void iniciarMainActivity(String usuarioGuardado) {
+        Intent main_activity = new Intent(LoginActivity.this, MainActivity.class);
+        main_activity.putExtra(Constantes.USUARIO, usuarioGuardado);
+        startActivity(main_activity);
+        finish();
+    }
+
 }

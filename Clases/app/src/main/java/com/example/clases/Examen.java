@@ -1,14 +1,23 @@
 package com.example.clases;
 
+import android.widget.EditText;
+
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
+
+@DatabaseTable(tableName = "examenes")
 public class Examen {
+
+    @DatabaseField(id = true)
     private Integer id;
+
+    @DatabaseField
     private String materia;
+
+    @DatabaseField
     private String fecha;
 
-    public Examen(Integer id, String materia, String fecha) {
-        this.id = id;
-        this.materia = materia;
-        this.fecha = fecha;
+    public Examen(){
     }
 
     public Integer getId() {

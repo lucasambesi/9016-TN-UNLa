@@ -2,9 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/iAdd"
-        android:icon="@drawable/ic_add"
-        android:title="Agregar"
+        android:id="@+id/iBack"
+        android:icon="@drawable/ic_baseline_arrow_back_24"
+        android:title="Volver"
         app:showAsAction="ifRoom">
 
     </item>

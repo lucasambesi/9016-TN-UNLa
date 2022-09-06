@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,17 +71,26 @@ public class MainActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
 
         if (bundle != null){
-            String usuario = bundle.getString("usuario");
+            String usuario = bundle.getString(Constantes.USUARIO);
             Toast.makeText(MainActivity.this, "Bienvenido/a" + usuario, Toast.LENGTH_SHORT).show();
         }
     }
 
     private List<Examen> getExamenes() {
-        return new ArrayList<Examen>() {{
+     try{
+         return ExamenManager.getInstancia(this).getExamenes();
+     }catch (Exception e){
+         e.printStackTrace();
+         return new ArrayList<Examen>();
+     }
+    }
+
+    /*
+             return new ArrayList<Examen>() {{
             add(new Examen(1, "Ingenieria de Software 1", "2022-04-05"));
             add(new Examen(2, "Algoritmos y Estructuras de Datos", "2022-04-07"));
             add(new Examen(3, "Prueba de Software", "2022-04-08"));
             add(new Examen(4, "Matematica", "2022-04-10"));
         }};
-    }
+    */
 }
