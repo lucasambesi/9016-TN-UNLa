@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -50,6 +51,9 @@ public class MainActivity extends AppCompatActivity {
                 Intent main_activity = new Intent(MainActivity.this, FavoritesActivity.class);
                 startActivity(main_activity);
                 return true;
+            case R.id.iSingOff:
+                SingOff();
+                return true;
             case R.id.iBack:
                 finish();
                 System.exit(0);
@@ -66,6 +70,20 @@ public class MainActivity extends AppCompatActivity {
             String usuario = bundle.getString(Constantes.USUARIO);
             Toast.makeText(MainActivity.this, "Bienvenido/a " + usuario, Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void SingOff(){
+
+        SharedPreferences prefs = getApplicationContext().getSharedPreferences(Constantes.SP_CREDENCIALES, MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+
+        editor.putString(Constantes.USUARIO, null);
+        editor.putString(Constantes.PASSWORD, null);
+        editor.apply();
+
+        Intent login_activity = new Intent(MainActivity.this, LoginActivity.class);
+        startActivity(login_activity);
+        finish();
     }
 
     public ArrayList<CardHouseModel> dataqueue()
