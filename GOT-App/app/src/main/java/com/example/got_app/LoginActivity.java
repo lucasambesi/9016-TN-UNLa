@@ -3,6 +3,7 @@ package com.example.got_app;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -27,6 +28,14 @@ public class LoginActivity extends AppCompatActivity {
 
         cbRemember = findViewById(R.id.cbRemember);
 
+        SharedPreferences prefs = getApplicationContext().getSharedPreferences(Constantes.SP_CREDENCIALES, MODE_PRIVATE);
+        String usuarioGuardado = prefs.getString(Constantes.USUARIO, null);
+        String passGuadarda = prefs.getString(Constantes.PASSWORD, null);
+
+        if(usuarioGuardado != null && passGuadarda != null){
+            iniciarMainActivity(usuarioGuardado);
+        }
+
         btnLogin = findViewById(R.id.btnLogin);
         btnSingUp = findViewById(R.id.btnSingUp);
 
@@ -36,13 +45,12 @@ public class LoginActivity extends AppCompatActivity {
                 Log.i("TODO","Se apreto el boton iniciar sesion");
 
                 String usuario= etUser.getText().toString();
-                String passsword= etPassword.getText().toString();
+                String password= etPassword.getText().toString();
 
-                if(usuario.isEmpty() || passsword.isEmpty()){
+                if(usuario.isEmpty() || password.isEmpty()){
                     Toast.makeText(LoginActivity.this, "Completar Datos", Toast.LENGTH_SHORT).show();
                 }else{
-                    Intent main_activity = new Intent(LoginActivity.this, MainActivity.class);
-                    startActivity(main_activity);
+                    login(usuario,password);
                 }
             }
         });
@@ -50,9 +58,30 @@ public class LoginActivity extends AppCompatActivity {
         btnSingUp.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
+                Log.i("TODO","Se apreto el boton registrar usuario.");
                 Intent main_activity = new Intent(LoginActivity.this, RegisterActivity.class);
                 startActivity(main_activity);
             }
         });
+    }
+
+    private void login(String usuario, String password) {
+        if(cbRemember.isChecked()){
+            SharedPreferences prefs = getApplicationContext().getSharedPreferences(Constantes.SP_CREDENCIALES, MODE_PRIVATE);
+            SharedPreferences.Editor editor = prefs.edit();
+
+            editor.putString(Constantes.USUARIO, usuario);
+            editor.putString(Constantes.PASSWORD, password);
+            editor.apply();
+        }
+
+        iniciarMainActivity(usuario);
+    }
+
+    private void iniciarMainActivity(String usuarioGuardado) {
+        Intent main_activity = new Intent(LoginActivity.this, MainActivity.class);
+        main_activity.putExtra(Constantes.USUARIO, usuarioGuardado);
+        startActivity(main_activity);
+        finish();
     }
 }

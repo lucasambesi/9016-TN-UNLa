@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -21,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        saludarUsuario();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.tbMain);
 
@@ -53,6 +56,15 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void saludarUsuario(){
+        Bundle bundle = getIntent().getExtras();
+
+        if (bundle != null){
+            String usuario = bundle.getString(Constantes.USUARIO);
+            Toast.makeText(MainActivity.this, "Bienvenido/a " + usuario, Toast.LENGTH_SHORT).show();
         }
     }
 
