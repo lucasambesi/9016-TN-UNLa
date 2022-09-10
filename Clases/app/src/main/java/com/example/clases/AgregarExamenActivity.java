@@ -46,7 +46,7 @@ public class AgregarExamenActivity extends AppCompatActivity {
                 etFecha.setText("");
 
                 Toast.makeText(AgregarExamenActivity.this, "El examen se agrego correcametne", Toast.LENGTH_SHORT).show();
-                
+
                 try{
                     ExamenManager.getInstancia(AgregarExamenActivity.this).agregarExamen(examen);
                 }catch (Exception e){
