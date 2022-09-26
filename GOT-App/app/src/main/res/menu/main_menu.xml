@@ -7,6 +7,12 @@
         android:title="Favorites"
         app:showAsAction="never"></item>
     <item
+        android:id="@+id/iSingOff"
+        android:icon="@drawable/ic_action_more"
+        android:title="Sign off"
+        app:showAsAction="never">
+    </item>
+    <item
         android:id="@+id/iBack"
         android:icon="@drawable/ic_action_more"
         android:title="Exit"
