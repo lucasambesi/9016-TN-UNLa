@@ -6,7 +6,6 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,8 +14,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class RegisterActivity extends AppCompatActivity {
-
-    EditText etUser, etPassword;
+    EditText etUser, etPassword, etConfirmPass;
     Button btnRegister;
 
     @Override
@@ -26,6 +24,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         etUser = findViewById(R.id.etUser);
         etPassword = findViewById(R.id.etPassword);
+        etConfirmPass = findViewById(R.id.etConfirmPass);
         btnRegister = findViewById(R.id.btnRegister);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.tbRegister);
@@ -35,17 +34,49 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v){
 
-                String usuario= etUser.getText().toString();
-                String passsword= etPassword.getText().toString();
+                String name= etUser.getText().toString();
+                String password= etPassword.getText().toString();
+                String confirmPass= etConfirmPass.getText().toString();
 
-                if(usuario.isEmpty() || passsword.isEmpty()){
-                    Toast.makeText(RegisterActivity.this, "Completar Datos", Toast.LENGTH_SHORT).show();
-                }else{
-                    Intent main_activity = new Intent(RegisterActivity.this, LoginActivity.class);
-                    startActivity(main_activity);
+                try {
+                    registrarUsuario(name, password, confirmPass);
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
         });
+    }
+
+    private void registrarUsuario(String name, String password, String confirmPass) throws Exception {
+        if(name.isEmpty() || password.isEmpty() || confirmPass.isEmpty()){
+            Toast.makeText(RegisterActivity.this, "Completar Datos", Toast.LENGTH_SHORT).show();
+        }else if(!password.equals(confirmPass)){
+            Toast.makeText(RegisterActivity.this, "Los passwords no coinciden!", Toast.LENGTH_SHORT).show();
+        }else if(validarName(name)){
+            Toast.makeText(RegisterActivity.this, "El usuario ya existe!", Toast.LENGTH_SHORT).show();
+        }else{
+            try {
+                User user = new User(name, password);
+                UserManager.getInstancia(RegisterActivity.this).addUser(user);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            Toast.makeText(RegisterActivity.this, "Usuario registrado!", Toast.LENGTH_SHORT).show();
+            iniciarLoginActivity();
+        }
+    }
+
+    private boolean validarName(String name){
+        boolean response = false;
+        User user = null;
+        try{
+            user = UserManager.getInstancia(RegisterActivity.this).getUserByName(name);
+            if(user != null)
+                response = true;
+        }catch (Exception e){
+            e.fillInStackTrace();
+        }
+        return response;
     }
 
     @Override
@@ -64,5 +95,11 @@ public class RegisterActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void iniciarLoginActivity() {
+        Intent main_activity = new Intent(RegisterActivity.this, LoginActivity.class);
+        startActivity(main_activity);
+        finish();
     }
 }

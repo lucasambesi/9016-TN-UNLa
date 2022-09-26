@@ -50,7 +50,8 @@ public class LoginActivity extends AppCompatActivity {
                 if(usuario.isEmpty() || password.isEmpty()){
                     Toast.makeText(LoginActivity.this, "Completar Datos", Toast.LENGTH_SHORT).show();
                 }else{
-                    login(usuario,password);
+                    User user = new User(usuario, password);
+                    validarUsuario(user);
                 }
             }
         });
@@ -65,17 +66,37 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void login(String usuario, String password) {
+    private void validarUsuario(User user) {
+        User userAux = null;
+
+        try{
+            userAux = UserManager.getInstancia(LoginActivity.this).getUserByName(user.getName());
+        }catch (Exception e){
+            e.fillInStackTrace();
+        }
+
+        if(userAux == null){
+            Toast.makeText(LoginActivity.this, "El usuario no coincide!", Toast.LENGTH_SHORT).show();
+        }
+        else if(!userAux.getPassword().equals(user.getPassword())){
+            Toast.makeText(LoginActivity.this, "El password no coincide!", Toast.LENGTH_SHORT).show();
+        }
+        else{
+            login(user);
+        }
+    }
+
+    private void login(User user){
         if(cbRemember.isChecked()){
             SharedPreferences prefs = getApplicationContext().getSharedPreferences(Constantes.SP_CREDENCIALES, MODE_PRIVATE);
             SharedPreferences.Editor editor = prefs.edit();
 
-            editor.putString(Constantes.USUARIO, usuario);
-            editor.putString(Constantes.PASSWORD, password);
+            editor.putString(Constantes.USUARIO, user.getName());
+            editor.putString(Constantes.PASSWORD, user.getPassword());
             editor.apply();
         }
 
-        iniciarMainActivity(usuario);
+        iniciarMainActivity(user.getName());
     }
 
     private void iniciarMainActivity(String usuarioGuardado) {
