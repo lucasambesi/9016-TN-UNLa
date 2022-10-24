@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.iMore:
-                Intent main_activity = new Intent(MainActivity.this, FavoritesActivity.class);
+                Intent main_activity = new Intent(MainActivity.this, MainActivity3.class);
                 startActivity(main_activity);
                 return true;
             case R.id.iSingOff:

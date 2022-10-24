@@ -39,7 +39,7 @@ class HouseActivity : AppCompatActivity(), CoroutineScope by MainScope() {
         var chModels = ArrayList<CardCharacterModel>()
         runOnUiThread {
             CoroutineScope(Dispatchers.Main).launch {
-                val callHouse = RetrofitClient.getRetrofit().create(MyAPI::class.java).getHouse("houses/$houseId")
+                val callHouse = RetrofitClient.getRetrofit().create(ServiceAPI::class.java).getHouse("houses/$houseId")
                 val house= callHouse.body()
                 val characters = ArrayList<Character>()
                 if(callHouse.isSuccessful){
@@ -49,7 +49,7 @@ class HouseActivity : AppCompatActivity(), CoroutineScope by MainScope() {
                             val splittedString: List<String> = url.split("characters/")
                             val idCharacter = splittedString[splittedString.count() - 1]
                             Log.d("splittedString: ", idCharacter)
-                            val call = RetrofitClient.getRetrofit().create(MyAPI::class.java).getCharacter(
+                            val call = RetrofitClient.getRetrofit().create(ServiceAPI::class.java).getCharacter(
                                 "characters/$idCharacter"
                             )
 
