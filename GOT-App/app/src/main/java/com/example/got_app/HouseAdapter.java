@@ -47,6 +47,7 @@ public class HouseAdapter extends RecyclerView.Adapter<holder>
                 intent.putExtra("image",temp.getImage());
                 intent.putExtra("header",temp.getHeader());
                 intent.putExtra("desc",temp.getDesc());
+                intent.putExtra("id",temp.getId());
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
                 context.startActivity(intent);

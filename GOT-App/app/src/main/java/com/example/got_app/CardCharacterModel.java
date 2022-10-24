@@ -4,7 +4,6 @@ public class CardCharacterModel {
     private String header;
     private String desc;
 
-
     public String getHeader() {
         return header;
     }

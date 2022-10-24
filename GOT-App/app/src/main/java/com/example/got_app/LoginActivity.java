@@ -1,9 +1,16 @@
 package com.example.got_app;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -46,7 +53,6 @@ public class LoginActivity extends AppCompatActivity {
 
                 String usuario= etUser.getText().toString();
                 String password= etPassword.getText().toString();
-
                 if(usuario.isEmpty() || password.isEmpty()){
                     Toast.makeText(LoginActivity.this, "Completar Datos", Toast.LENGTH_SHORT).show();
                 }else{
@@ -88,15 +94,42 @@ public class LoginActivity extends AppCompatActivity {
 
     private void login(User user){
         if(cbRemember.isChecked()){
+
             SharedPreferences prefs = getApplicationContext().getSharedPreferences(Constantes.SP_CREDENCIALES, MODE_PRIVATE);
             SharedPreferences.Editor editor = prefs.edit();
 
             editor.putString(Constantes.USUARIO, user.getName());
             editor.putString(Constantes.PASSWORD, user.getPassword());
             editor.apply();
-        }
 
+            createNotificationChannel();
+            createNotificacion();
+        }
         iniciarMainActivity(user.getName());
+    }
+
+    private void createNotificacion(){
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), "NOTIFICACION");
+        builder.setSmallIcon(R.drawable.ico_got);
+        builder.setContentTitle("GOT-App");
+        builder.setContentText("Se inicio sesion en modo Recordar Usuario");
+        builder.setColor(Color.BLUE);
+        builder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
+        builder.setLights(Color.MAGENTA, 1000,1000);
+        builder.setVibrate(new long[]{1000,1000,1000,1000,1000});
+        builder.setDefaults(Notification.DEFAULT_SOUND);
+
+        NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(getApplicationContext());
+        notificationManagerCompat.notify(0, builder.build());
+    }
+
+    private void createNotificationChannel(){
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            CharSequence name ="Notificacion";
+            NotificationChannel notificationChannel = new NotificationChannel("NOTIFICACION",name, NotificationManager.IMPORTANCE_DEFAULT);
+            NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+            notificationManager.createNotificationChannel(notificationChannel);
+        }
     }
 
     private void iniciarMainActivity(String usuarioGuardado) {
