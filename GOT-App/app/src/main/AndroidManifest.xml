@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GOTApp">
         <activity
-            android:name=".MainActivity3"
+            android:name=".YesNoActivity"
             android:exported="true" >
         </activity>
         <activity
