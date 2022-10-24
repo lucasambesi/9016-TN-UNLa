@@ -91,12 +91,14 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<CardHouseModel> houses = new ArrayList<>();
 
         CardHouseModel stark =new CardHouseModel();
+        stark.setId("362");
         stark.setHeader("House Stark");
         stark.setDesc("\"Winter is Coming.\"");
         stark.setImage(R.drawable.stark);
         houses.add(stark);
 
         CardHouseModel targaryen=new CardHouseModel();
+        targaryen.setId("378");
         targaryen.setHeader("House Targaryen");
         targaryen.setDesc("\"Fire and Blood.\"");
         targaryen.setImage(R.drawable.targaryen);
@@ -116,6 +118,7 @@ public class MainActivity extends AppCompatActivity {
 
         CardHouseModel arryn=new CardHouseModel();
         arryn.setHeader("House Arryn");
+        arryn.setId("7");
         arryn.setDesc("\"As High as Honor.\"");
         arryn.setImage(R.drawable.arryn);
         houses.add(arryn);

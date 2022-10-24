@@ -2,9 +2,18 @@ package com.example.got_app;
 
 public class CardHouseModel
 {
+    private String id;
     private String header;
     private String desc;
     private int image;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getHeader() {
         return header;
