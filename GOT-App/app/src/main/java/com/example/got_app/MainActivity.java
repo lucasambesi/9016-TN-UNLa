@@ -105,12 +105,16 @@ public class MainActivity extends AppCompatActivity {
         houses.add(targaryen);
 
         CardHouseModel greyjoy=new CardHouseModel();
+        //TODO: set id house Greyjoy
+        greyjoy.setId("1");
         greyjoy.setHeader("House Greyjoy");
         greyjoy.setDesc("\"We Do Not Sow.\"");
         greyjoy.setImage(R.drawable.greyjoy);
         houses.add(greyjoy);
 
         CardHouseModel tully=new CardHouseModel();
+        //TODO: set id house Tully
+        tully.setId("1");
         tully.setHeader("House Tully");
         tully.setDesc("\"Family, Duty, Honor.\"");
         tully.setImage(R.drawable.tully);
@@ -124,24 +128,32 @@ public class MainActivity extends AppCompatActivity {
         houses.add(arryn);
 
         CardHouseModel lannister=new CardHouseModel();
+        //TODO: set id house Lannister
+        lannister.setId("1");
         lannister.setHeader("House Lannister");
         lannister.setDesc("\"Hear Me Roar!\"");
         lannister.setImage(R.drawable.lannister);
         houses.add(lannister);
 
         CardHouseModel tyrell=new CardHouseModel();
+        //TODO: set id house Tyrell
+        tyrell.setId("1");
         tyrell.setHeader("House Tyrell");
         tyrell.setDesc("\"Growing Strong.\"");
         tyrell.setImage(R.drawable.tyrell);
         houses.add(tyrell);
 
         CardHouseModel baratheon=new CardHouseModel();
+        //TODO: set id house Baratheon
+        baratheon.setId("1");
         baratheon.setHeader("House Baratheon");
         baratheon.setDesc("\"Ours is the Fury.\"");
         baratheon.setImage(R.drawable.baratheon);
         houses.add(baratheon);
 
         CardHouseModel martell=new CardHouseModel();
+        //TODO: set id house Martell
+        martell.setId("1");
         martell.setHeader("House Martell");
         martell.setDesc("\"Unbowed, Unbent, Unbroken.\"");
         martell.setImage(R.drawable.martell);
